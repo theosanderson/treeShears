@@ -17,7 +17,7 @@ treefile = args.input
 random_text_name = random_text_name = random.randint(1, 1000000)
 command = f"matUtils extract -i {treefile} -t ./{random_text_name}.nwk"
 
-#subprocess.call(command, shell=True)
+subprocess.call(command, shell=True)
 
 # Read file with treeswift
 random_text_name = 603804
@@ -53,4 +53,10 @@ command = f"matUtils extract -i {treefile} -p -s ./{random_text_name}_to_remove.
 subprocess.call(command, shell=True)
 
 command = f" matUtils extract -i {args.output} -l {args.output}.taxonium.pb -g ncbiGenes.gtf -f wuhCor1.fa -M public-latest.metadata.tsv -G 0.15"
+subprocess.call(command, shell=True)
+
+# clean up
+command = f"rm ./{random_text_name}.nwk"
+subprocess.call(command, shell=True)
+command = f"rm ./{random_text_name}_to_remove.txt"
 subprocess.call(command, shell=True)
