@@ -20,7 +20,6 @@ command = f"matUtils extract -i {treefile} -t ./{random_text_name}.nwk"
 subprocess.call(command, shell=True)
 
 # Read file with treeswift
-random_text_name = 603804
 contents = open(f"./{random_text_name}.nwk", "r").read()
 
 tree = treeswift.read_tree_newick(contents)
