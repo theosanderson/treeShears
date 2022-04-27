@@ -3,6 +3,7 @@ import subprocess
 import sys
 import random
 import argparse
+import tempfile
 
 parser = argparse.ArgumentParser(description='Treeshears')
 parser.add_argument('-i', '--input', help='Input MAT file', required=True)
@@ -14,13 +15,14 @@ args = parser.parse_args()
 threshold = int(args.threshold)
 treefile = args.input
 
-random_text_name = random_text_name = random.randint(1, 1000000)
-command = f"matUtils extract -i {treefile} -t ./{random_text_name}.nwk"
+temp_dir = tempfile.mkdtemp()
+
+command = f"matUtils extract -i {treefile} -t {temp_dir}/tree.nwk"
 
 subprocess.call(command, shell=True)
 
 # Read file with treeswift
-contents = open(f"./{random_text_name}.nwk", "r").read()
+contents = open(f"{temp_dir}/tree.nwk", "r").read()
 
 tree = treeswift.read_tree_newick(contents)
 
@@ -43,19 +45,13 @@ for node in tqdm.tqdm(tree.traverse_preorder()):
                         for leaf in child_node.traverse_leaves():
                             to_remove.add(leaf.label)
 
-to_remove_file = open(f"./{random_text_name}_to_remove.txt", "wt")
+to_remove_file = open(f"{temp_dir}/to_remove.txt", "wt")
 for item in to_remove:
     to_remove_file.write(f"{item}\n")
 to_remove_file.close()
 
-command = f"matUtils extract -i {treefile} -p -s ./{random_text_name}_to_remove.txt -o {args.output} -O"
+command = f"matUtils extract -i {treefile} -p -s {temp_dir}/to_remove.txt -o {args.output} -O"
 subprocess.call(command, shell=True)
 
 command = f" matUtils extract -i {args.output} -l {args.output}.taxonium.pb -g ncbiGenes.gtf -f wuhCor1.fa -M public-latest.metadata.tsv -G 0.15"
-subprocess.call(command, shell=True)
-
-# clean up
-command = f"rm ./{random_text_name}.nwk"
-subprocess.call(command, shell=True)
-command = f"rm ./{random_text_name}_to_remove.txt"
 subprocess.call(command, shell=True)
