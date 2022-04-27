@@ -33,8 +33,10 @@ for node in tree.traverse_postorder():
 to_remove = set()
 import tqdm
 for node in tqdm.tqdm(tree.traverse_preorder()):
-            for child_node in node.children:
-                if child_node.total_descendants * args.T < node.total_descendants:
+    if node.num_children() > 1:
+        largest_child = max(node.children, key=lambda x: x.total_descendants)
+        for child_node in node.children:
+                if child_node.total_descendants * args.T < largest_child.total_descendants:
                     if child_node.is_leaf():
                         to_remove.add(child_node.label)
                     else:
