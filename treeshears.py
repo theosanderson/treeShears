@@ -8,7 +8,7 @@ import tempfile
 parser = argparse.ArgumentParser(description='Treeshears')
 parser.add_argument('-i', '--input', help='Input MAT file', required=True)
 parser.add_argument('-o', '--output', help='Output MAT file', required=True)
-parser.add_argument('-T', '--threshold', help='Threshold', default=1000)
+parser.add_argument('-T', '--thresharold', help='Threshold', default=1000)
 
 args = parser.parse_args()
 
@@ -36,7 +36,7 @@ for node in tqdm.tqdm(tree.traverse_preorder()):
     if node.num_children() > 1:
         largest_child = max(node.children, key=lambda x: x.total_descendants)
         for child_node in node.children:
-                if child_node.total_descendants * args.T < largest_child.total_descendants:
+                if child_node.total_descendants * threshold < largest_child.total_descendants:
                     if child_node.is_leaf():
                         to_remove.add(child_node.label)
                     else:
