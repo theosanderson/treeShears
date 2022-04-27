@@ -17,7 +17,7 @@ treefile = args.input
 
 temp_dir = tempfile.mkdtemp()
 
-command = f"matUtils extract -i {treefile} -t {temp_dir}/tree.nwk"
+command = f"matUtils extract -i {treefile} -d {temp_dir} -t tree.nwk"
 
 subprocess.call(command, shell=True)
 
