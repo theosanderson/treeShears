@@ -7,7 +7,7 @@ import argparse
 parser = argparse.ArgumentParser(description='Treeshears')
 parser.add_argument('-i', '--input', help='Input MAT file', required=True)
 parser.add_argument('-o', '--output', help='Output MAT file', required=True)
-parser.add_argument('-v', '--threshold', help='Threshold', default=1000)
+parser.add_argument('-T', '--threshold', help='Threshold', default=1000)
 
 args = parser.parse_args()
 
