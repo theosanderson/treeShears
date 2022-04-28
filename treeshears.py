@@ -50,6 +50,3 @@ to_remove_file.close()
 
 command = f"matUtils extract -i {treefile} -p -s {temp_dir}/to_remove.txt -o {args.output} -O"
 subprocess.call(command, shell=True)
-
-command = f" matUtils extract -i {args.output} -l {args.output}.taxonium.pb -g ncbiGenes.gtf -f wuhCor1.fa -M public-latest.metadata.tsv -G 0.15"
-subprocess.call(command, shell=True)
