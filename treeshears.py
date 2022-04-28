@@ -4,6 +4,7 @@ import sys
 import random
 import argparse
 import tempfile
+import os
 
 parser = argparse.ArgumentParser(description='Treeshears')
 parser.add_argument('-i', '--input', help='Input MAT file', required=True)
@@ -48,5 +49,9 @@ for item in to_remove:
     to_remove_file.write(f"{item}\n")
 to_remove_file.close()
 
-command = f"matUtils extract -i {treefile} -p -s {temp_dir}/to_remove.txt -o {args.output} -O"
+#split args.output into directory and filename
+output_dir, output_file = os.path.split(args.output)
+
+command = f"matUtils extract -i {treefile} -p -s {temp_dir}/to_remove.txt -d {output_dir} -o {output_file} -O"
+
 subprocess.call(command, shell=True)
