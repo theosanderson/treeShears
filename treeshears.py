@@ -36,7 +36,7 @@ for node in tqdm.tqdm(tree.traverse_preorder()):
     if node.num_children() > 1:
         largest_child = max(node.children, key=lambda x: x.total_descendants)
         for child_node in node.children:
-                if child_node.total_descendants * threshold < largest_child.total_descendants:
+                if ( child_node.total_descendants +1)* threshold < largest_child.total_descendants:
                     if child_node.is_leaf():
                         to_remove.add(child_node.label)
                     else:
