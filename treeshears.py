@@ -51,6 +51,7 @@ to_remove_file.close()
 
 #split args.output into directory and filename
 output_dir, output_file = os.path.split(args.output)
+print(f"O{output_dir}O")
 output_dir = output_dir if output_dir.trim() != "" else "."
 
 command = f"matUtils extract -i {treefile} -p -s {temp_dir}/to_remove.txt -d {output_dir} -o {output_file} -O"
