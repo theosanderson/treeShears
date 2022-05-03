@@ -28,7 +28,7 @@ jobs:
           conda info
           conda list
           conda install usher
-          pip install treeswift, tqdm
+          pip install treeswift tqdm
   
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
