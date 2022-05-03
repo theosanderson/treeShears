@@ -53,5 +53,6 @@ to_remove_file.close()
 output_dir, output_file = os.path.split(args.output)
 
 command = f"matUtils extract -i {treefile} -p -s {temp_dir}/to_remove.txt -d {output_dir} -o {output_file} -O"
+print("Running",command)
 
 subprocess.call(command, shell=True)
