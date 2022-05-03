@@ -39,6 +39,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          wget -qN https://github.com/theosanderson/taxonium/blob/master/taxoniumtools/test_data/tfci.pb
+          wget -qN https://github.com/theosanderson/taxonium/raw/master/taxoniumtools/test_data/tfci.pb
           python treeshears.py -i tfci.pb -o tfci2.pb
           
