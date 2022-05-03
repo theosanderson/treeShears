@@ -3,6 +3,7 @@ name: Update tree
 on:
   repository_dispatch:
   workflow_dispatch:
+  push:
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron: "0 5 * * *"
@@ -27,6 +28,7 @@ jobs:
           conda info
           conda list
           conda install usher
+          pip install treeswift
   
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
