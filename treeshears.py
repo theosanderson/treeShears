@@ -5,6 +5,7 @@ import random
 import argparse
 import tempfile
 import os
+from alive_progress import alive_it
 
 parser = argparse.ArgumentParser(description='Treeshears')
 parser.add_argument('-i', '--input', help='Input MAT file', required=True)
@@ -32,8 +33,8 @@ for node in tree.traverse_postorder():
         [x.total_descendants for x in node.children])
 
 to_remove = set()
-import tqdm
-for node in tqdm.tqdm(tree.traverse_preorder()):
+
+for node in alive_it(tree.traverse_preorder()):
     if node.num_children() > 1 and node != tree.root:
         largest_child = max(node.children, key=lambda x: x.total_descendants)
         for child_node in node.children:
